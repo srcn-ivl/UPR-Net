@@ -1,0 +1,4 @@
+loguru==0.5.3
+opencv_python==4.5.1.48
+scipy==1.5.2
+tensorboard==2.10.0

@@ -1,0 +1,23 @@
+# Specific files for this repo *.pyc
+*.py~
+*.py#
+*.mp4
+*.npz
+*.zip
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+
+# Soft link of possible dataset
+data
+datasets
+
+# Train-log dir
+train-log
+
+# Test-log dir
+test-log
+
+# Ignore some subdirs in demo dir
+demo/output
