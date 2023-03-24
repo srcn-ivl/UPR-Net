@@ -99,7 +99,7 @@ saved in `../upr-train-log` by default. We also intentionally soft link
 
 ### Some tips for training
 - If you want to train large or LARGE versions of our UPR-Net, please assign the
-    argument `large_model` or `LARGE_model` as `True` in training command.
+    argument `model_size` as `large` or `LARGE`.
 
 - If you have suspended the training, and want to restart the training from 
     previous checkpoint, please assign the argument `resume` as `True` in the
