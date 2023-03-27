@@ -12,49 +12,49 @@ from ..models.softsplat import softsplat
 # => Feature Pyramid
 #**************************************************************************************************#
 class FeatPyramid(nn.Module):
-    """A 3-level feature pyramid, which by default is shared by
-    the motion estimator and synthesis network.
+    """A 3-level feature pyramid, which by default is shared by the motion
+    estimator and synthesis network.
     """
     def __init__(self):
         super(FeatPyramid, self).__init__()
         self.conv_stage0 = nn.Sequential(
-                nn.Conv2d(in_channels=3, out_channels=24,
-                    kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(in_channels=3, out_channels=32, kernel_size=3,
+                    stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1),
-                nn.Conv2d(in_channels=24, out_channels=24,
-                    kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(in_channels=32, out_channels=32, kernel_size=3,
+                    stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1),
-                nn.Conv2d(in_channels=24, out_channels=24,
-                    kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(in_channels=32, out_channels=32, kernel_size=3,
+                    stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1),
-                nn.Conv2d(in_channels=24, out_channels=24,
-                    kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(in_channels=32, out_channels=32, kernel_size=3,
+                    stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1))
         self.conv_stage1 = nn.Sequential(
-                nn.Conv2d(in_channels=24, out_channels=48,
-                    kernel_size=3, stride=2, padding=1),
+                nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3,
+                    stride=2, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1),
-                nn.Conv2d(in_channels=48, out_channels=48,
-                    kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3,
+                    stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1),
-                nn.Conv2d(in_channels=48, out_channels=48,
-                    kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3,
+                    stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1),
-                nn.Conv2d(in_channels=48, out_channels=48,
-                    kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3,
+                    stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1))
         self.conv_stage2 = nn.Sequential(
-                nn.Conv2d(in_channels=48, out_channels=96,
-                    kernel_size=3, stride=2, padding=1),
+                nn.Conv2d(in_channels=64, out_channels=128, kernel_size=3,
+                    stride=2, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1),
-                nn.Conv2d(in_channels=96, out_channels=96,
-                    kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3,
+                    stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1),
-                nn.Conv2d(in_channels=96, out_channels=96,
-                    kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3,
+                    stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1),
-                nn.Conv2d(in_channels=96, out_channels=96,
-                    kernel_size=3, stride=1, padding=1),
+                nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3,
+                    stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1))
 
     def forward(self, img):
@@ -78,29 +78,29 @@ class MotionEstimator(nn.Module):
     """
     def __init__(self):
         super(MotionEstimator, self).__init__()
-        # (4*2 + 1) ** 2 + 96 * 2 + 96 + 4 = 373
+        # (4*2 + 1) ** 2 + 128 * 2 + 128 + 4 = 469
         self.conv_layer1 = nn.Sequential(
-                nn.Conv2d(in_channels=373, out_channels=240,
+                nn.Conv2d(in_channels=469, out_channels=320,
                     kernel_size=1, stride=1, padding=0),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1))
         self.conv_layer2 = nn.Sequential(
-                nn.Conv2d(in_channels=240, out_channels=192,
+                nn.Conv2d(in_channels=320, out_channels=256,
                     kernel_size=3, stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1))
         self.conv_layer3 = nn.Sequential(
-                nn.Conv2d(in_channels=192, out_channels=168,
+                nn.Conv2d(in_channels=256, out_channels=224,
                     kernel_size=3, stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1))
         self.conv_layer4 = nn.Sequential(
-                nn.Conv2d(in_channels=168, out_channels=144,
+                nn.Conv2d(in_channels=224, out_channels=192,
                     kernel_size=3, stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1))
         self.conv_layer5 = nn.Sequential(
-                nn.Conv2d(in_channels=144, out_channels=96,
+                nn.Conv2d(in_channels=192, out_channels=128,
                     kernel_size=3, stride=1, padding=1),
                 nn.LeakyReLU(inplace=False, negative_slope=0.1))
         self.conv_layer6 = nn.Sequential(
-                nn.Conv2d(in_channels=96, out_channels=4,
+                nn.Conv2d(in_channels=128, out_channels=4,
                     kernel_size=3, stride=1, padding=1))
 
 
@@ -137,56 +137,57 @@ class SynthesisNetwork(nn.Module):
         super(SynthesisNetwork, self).__init__()
         input_channels = 9+4+6
         self.encoder_conv = nn.Sequential(
-                nn.Conv2d(in_channels=input_channels, out_channels=48,
+                nn.Conv2d(in_channels=input_channels, out_channels=64,
                     kernel_size=3, stride=1, padding=1),
-                nn.PReLU(num_parameters=48),
-                nn.Conv2d(in_channels=48, out_channels=48, kernel_size=3,
+                nn.PReLU(num_parameters=64),
+                nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3,
                     stride=1, padding=1),
-                nn.PReLU(num_parameters=48))
+                nn.PReLU(num_parameters=64))
         self.encoder_down1 = nn.Sequential(
-                nn.Conv2d(in_channels=48 + 24 + 24, out_channels=96,
+                nn.Conv2d(in_channels=64 + 32 + 32, out_channels=128,
                     kernel_size=3, stride=2, padding=1),
-                nn.PReLU(num_parameters=96),
-                nn.Conv2d(in_channels=96, out_channels=96, kernel_size=3,
+                nn.PReLU(num_parameters=128),
+                nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3,
                     stride=1, padding=1),
-                nn.PReLU(num_parameters=96),
-                nn.Conv2d(in_channels=96, out_channels=96, kernel_size=3,
+                nn.PReLU(num_parameters=128),
+                nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3,
                     stride=1, padding=1),
-                nn.PReLU(num_parameters=96))
+                nn.PReLU(num_parameters=128))
         self.encoder_down2 = nn.Sequential(
-                nn.Conv2d(in_channels=96 + 48 + 48, out_channels=192,
+                nn.Conv2d(in_channels=128 + 64 + 64, out_channels=256,
                     kernel_size=3, stride=2, padding=1),
-                nn.PReLU(num_parameters=192),
-                nn.Conv2d(in_channels=192, out_channels=192,
-                    kernel_size=3, stride=1, padding=1),
-                nn.PReLU(num_parameters=192),
-                nn.Conv2d(in_channels=192, out_channels=192,
-                    kernel_size=3, stride=1, padding=1),
-                nn.PReLU(num_parameters=192))
+                nn.PReLU(num_parameters=256),
+                nn.Conv2d(in_channels=256, out_channels=256, kernel_size=3,
+                    stride=1, padding=1),
+                nn.PReLU(num_parameters=256),
+                nn.Conv2d(in_channels=256, out_channels=256, kernel_size=3,
+                    stride=1, padding=1),
+                nn.PReLU(num_parameters=256))
         self.decoder_up1 = nn.Sequential(
-                torch.nn.ConvTranspose2d(in_channels=192 + 96 + 96,
-                    out_channels=96,
-                    kernel_size=4, stride=2, padding=1, bias=True),
-                nn.PReLU(num_parameters=96),
-                nn.Conv2d(in_channels=96, out_channels=96,
-                    kernel_size=3, stride=1, padding=1),
-                nn.PReLU(num_parameters=96))
+                torch.nn.ConvTranspose2d(in_channels=256 + 128 + 128,
+                    out_channels=128, kernel_size=4, stride=2,
+                    padding=1, bias=True),
+                nn.PReLU(num_parameters=128),
+                nn.Conv2d(in_channels=128, out_channels=128, kernel_size=3,
+                    stride=1, padding=1),
+                nn.PReLU(num_parameters=128))
         self.decoder_up2 = nn.Sequential(
-                torch.nn.ConvTranspose2d(in_channels=96 + 96, out_channels=48,
-                    kernel_size=4, stride=2, padding=1, bias=True),
-                nn.PReLU(num_parameters=48),
-                nn.Conv2d(in_channels=48, out_channels=48,
-                    kernel_size=3, stride=1, padding=1),
-                nn.PReLU(num_parameters=48))
+                torch.nn.ConvTranspose2d(in_channels=128 + 128,
+                    out_channels=64, kernel_size=4, stride=2,
+                    padding=1, bias=True),
+                nn.PReLU(num_parameters=64),
+                nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3,
+                    stride=1, padding=1),
+                nn.PReLU(num_parameters=64))
         self.decoder_conv = nn.Sequential(
-                nn.Conv2d(in_channels=48 + 48, out_channels=48,
-                    kernel_size=3, stride=1, padding=1),
-                nn.PReLU(num_parameters=48),
-                nn.Conv2d(in_channels=48, out_channels=48,
-                    kernel_size=3, stride=1, padding=1),
-                nn.PReLU(num_parameters=48))
-        self.pred = nn.Conv2d(in_channels=48, out_channels=5,
-                kernel_size=3, stride=1, padding=1)
+                nn.Conv2d(in_channels=64 + 64, out_channels=64, kernel_size=3,
+                    stride=1, padding=1),
+                nn.PReLU(num_parameters=64),
+                nn.Conv2d(in_channels=64, out_channels=64, kernel_size=3,
+                    stride=1, padding=1),
+                nn.PReLU(num_parameters=64))
+        self.pred = nn.Conv2d(in_channels=64, out_channels=5, kernel_size=3,
+                stride=1, padding=1)
 
 
     def get_warped_representations(self, bi_flow, c0, c1,
@@ -256,8 +257,6 @@ class SynthesisNetwork(nn.Module):
 
 
 
-
-
 #**************************************************************************************************#
 # => Unified model
 #**************************************************************************************************#
@@ -265,7 +264,6 @@ class Model(nn.Module):
     def __init__(self, pyr_level=3, nr_lvl_skipped=0):
         super(Model, self).__init__()
         self.pyr_level = pyr_level
-        self.nr_lvl_skipped = nr_lvl_skipped
         self.feat_pyramid = FeatPyramid()
         self.motion_estimator = MotionEstimator()
         self.synthesis_network = SynthesisNetwork()
@@ -315,6 +313,7 @@ class Model(nn.Module):
                     tenMetric=None, strType='average')
             last_interp = warped_img0 * (1 - time_period) \
                     +  warped_img1 * time_period
+
         ## do synthesis
         interp_img, extra_dict = self.synthesis_network(
                 last_interp, img0, img1, feat0_pyr, feat1_pyr, bi_flow_pyr,
@@ -348,13 +347,14 @@ class Model(nn.Module):
 
             # skip motion estimation, directly use up-sampled optical flow
             skip_me = False
+
             # the lowest-resolution pyramid level
             if level == pyr_level - 1:
                 last_flow = torch.zeros(
                         (N, 4, H // (2 ** (level+2)), W //(2 ** (level+2)))
                         ).to(img0.device)
                 last_feat = torch.zeros(
-                        (N, 96, H // (2 ** (level+2)), W // (2 ** (level+2)))
+                        (N, 128, H // (2 ** (level+2)), W // (2 ** (level+2)))
                         ).to(img0.device)
                 last_interp = None
             # skip some levels for both motion estimation and frame synthesis
@@ -386,6 +386,7 @@ class Model(nn.Module):
                         input=interp_img, scale_factor=2.0,
                         mode="bilinear", align_corners=False)
 
+
             flow, feat, interp_img, _ = self.forward_one_lvl(
                     img0_this_lvl, img1_this_lvl,
                     last_feat, last_flow, last_interp,
@@ -395,8 +396,8 @@ class Model(nn.Module):
                         mode="bilinear", align_corners=False))
             interp_imgs.append(interp_img)
 
-        # directly up-sample estimated flow to full resolution
-        # with bi-linear interpolation
+        # directly up-sample estimated flow to full resolution with bi-linear
+        # interpolation
         bi_flow = F.interpolate(
                 input=flow, scale_factor=4.0,
                 mode="bilinear", align_corners=False)

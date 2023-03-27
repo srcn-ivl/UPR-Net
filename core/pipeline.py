@@ -13,7 +13,7 @@ from .loss import EPE, Ternary, LapLoss
 
 from core.models.upr_base import Model as base_model
 from core.models.upr_large import Model as large_model
-from core.models.upr_LARGE import Model as LARGE_model
+from core.models.upr_llarge import Model as LARGE_model
 
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
