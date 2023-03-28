@@ -120,7 +120,7 @@ saved in `../upr-train-log` by default. We also intentionally soft link
 #### Trained model weights
 We have placed our trained model weights in `./checkpoints`. The weights of
 base/large/LARGE versions of our UPR-Net are named as `upr.pkl`,
-`upr_large.pkl`, `upr_LARGE.pkl`, respectively.
+`upr_large.pkl`, `upr_llarge.pkl`, respectively.
 
 
 #### Benchmark datasets
