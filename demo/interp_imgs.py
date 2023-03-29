@@ -15,7 +15,7 @@ from core.pipeline import Pipeline
 import warnings
 warnings.filterwarnings("ignore")
 
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
@@ -76,7 +76,8 @@ def interp_imgs(ppl, ori_img0, ori_img1):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="interp for a pair of images")
+    parser = argparse.ArgumentParser(
+            description="interpolate for given pair of images")
     parser.add_argument("--frame0", type=str, required=True,
             help="file path of the first input frame")
     parser.add_argument("--frame1", type=str, required=True,
@@ -86,13 +87,27 @@ if __name__ == "__main__":
     parser.add_argument("--save_dir", type=str,
             default="./demo/output",
             help="dir to save interpolated frame")
+
+    ## load base version of UPR-Net by default
     parser.add_argument('--model_size', type=str, default="base",
             help='model size, one of (base, large, LARGE)')
-    parser.add_argument('--load_pretrain', type=bool, default=True,
-            help='whether load pre-trained weight')
     parser.add_argument('--model_file', type=str,
             default="./checkpoints/upr-base.pkl",
-            help='weight of UPR-Net model')
+            help='weight of UPR-Net')
+
+    ## load large version of UPR-Net
+    # parser.add_argument('--model_size', type=str, default="large",
+    #         help='model size, one of (base, large, LARGE)')
+    # parser.add_argument('--model_file', type=str,
+    #         default="./checkpoints/upr-large.pkl",
+    #         help='weight of UPR-Net')
+
+    ## load LARGE version of UPR-Net
+    # parser.add_argument('--model_size', type=str, default="LARGE",
+    #         help='model size, one of (base, large, LARGE)')
+    # parser.add_argument('--model_file', type=str,
+    #         default="./checkpoints/upr-llarge.pkl",
+    #         help='weight of UPR-Net')
 
     args = parser.parse_args()
 
@@ -119,8 +134,8 @@ if __name__ == "__main__":
     #**********************************************************#
     # => init the pipeline and interpolate images
     model_cfg_dict = dict(
+            load_pretrain = True,
             model_size = args.model_size,
-            load_pretrain = args.load_pretrain,
             model_file = args.model_file
             )
 

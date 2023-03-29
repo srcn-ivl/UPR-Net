@@ -60,8 +60,8 @@ replace `cudatoolkit=10.2` in above command with `cudatoolkit=9.2`, and replace
 ## Play with demo
 We place trained model weights in `checkpoints`, and provide a script to test
 our frame interpolation model. Given two consecutive input frames, and the
-desired time step, run the following command, then you will obtain interpolated
-frame in the `./demo/output` directory.
+desired time step, run the following command, then you will obtain estimated
+bi-directional flow and interpolated frame in the `./demo/output` directory.
 ```
 python3 -m demo.interp_imgs \
 --frame0 demo/images/beanbags0.png \
@@ -144,6 +144,10 @@ python3 -m tools.benchmark_ucf101 --data_root /path/to/ucf101/
 python3 -m tools.benchmark_snufilm --data_root /path/to/SNU-FILM/
 python3 -m tools.benchmark_8x_4k1000fps --test_data_path /path/to/4k1000fps/test
 ```
+By default, we test the base version of UPR-Net. To test the large/LARGE
+versions, please change corresponding arguments (`model_size` and `model_file`)
+in benchmarking scripts.
+
 
 Additionally, run the following command can test our runtime.
 ```

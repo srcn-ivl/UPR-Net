@@ -74,15 +74,29 @@ if __name__ == "__main__":
 
     #**********************************************************#
     # => args for model
-    parser.add_argument('--model_size', type=str, default="base",
-            help='model size, one of (base, large, LARGE)')
     parser.add_argument('--pyr_level', type=int, default=3,
             help='the number of pyramid levels of UPR-Net in testing')
-    parser.add_argument('--load_pretrain', type=bool, default=True,
-            help='whether load pre-trained weight')
+    ## test base version of UPR-Net by default
+    parser.add_argument('--model_size', type=str, default="base",
+            help='model size, one of (base, large, LARGE)')
     parser.add_argument('--model_file', type=str,
             default="./checkpoints/upr-base.pkl",
             help='weight of UPR-Net')
+
+    ## test large version of UPR-Net
+    # parser.add_argument('--model_size', type=str, default="large",
+    #         help='model size, one of (base, large, LARGE)')
+    # parser.add_argument('--model_file', type=str,
+    #         default="./checkpoints/upr-large.pkl",
+    #         help='weight of UPR-Net')
+
+    ## test LARGE version of UPR-Net
+    # parser.add_argument('--model_size', type=str, default="LARGE",
+    #         help='model size, one of (base, large, LARGE)')
+    # parser.add_argument('--model_file', type=str,
+    #         default="./checkpoints/upr-llarge.pkl",
+    #         help='weight of UPR-Net')
+
 
     #**********************************************************#
     # => init the benchmarking environment
@@ -99,8 +113,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     model_cfg_dict = dict(
+            load_pretrain = True,
             model_size = args.model_size,
-            load_pretrain = args.load_pretrain,
             model_file = args.model_file
             )
     ppl = Pipeline(model_cfg_dict)
