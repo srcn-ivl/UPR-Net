@@ -264,6 +264,7 @@ class Model(nn.Module):
     def __init__(self, pyr_level=3, nr_lvl_skipped=0):
         super(Model, self).__init__()
         self.pyr_level = pyr_level
+        self.nr_lvl_skipped = nr_lvl_skipped
         self.feat_pyramid = FeatPyramid()
         self.motion_estimator = MotionEstimator()
         self.synthesis_network = SynthesisNetwork()
