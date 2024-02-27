@@ -40,9 +40,7 @@ def evaluate(ppl, test_data_path, batch_size, nr_data_worker=1):
             divisor = (0, pw - w, 0, ph - h)
             img0 = F.pad(img0, divisor, "constant", 0.5)
             img1 = F.pad(img1, divisor, "constant", 0.5)
-
-        img0 = F.interpolate(img0, (ph, pw), mode="bilinear")
-        img1 = F.interpolate(img1, (ph, pw), mode="bilinear")
+            
         pred, _  = ppl.inference(img0, img1, time_period=t_value,
                 pyr_level=PYR_LEVEL,
                 nr_lvl_skipped=NR_LVL_SKIPPED)
