@@ -8,6 +8,7 @@
 
 This project is the official implementation of our CVPR 2023 paper, [A Unified Pyramid
 Recurrent Network for Video Frame Interpolation](https://arxiv.org/abs/2211.03456).
+And, an extended [journal paper](https://link.springer.com/article/10.1007/s11263-024-02164-x) is accepted by IJCV.
 
 
 ## Introduction
@@ -188,5 +189,16 @@ to the licenses of RIFE, softmax-splatting, and EBME.
   booktitle={Proceedings of the IEEE conference on computer vision and pattern
   recognition},
   year={2023}
+}
+
+@article{jin2025upr,
+  title={UPR-Net: A Unified Pyramid Recurrent Network for Video Frame Interpolation},
+  author={Jin, Xin and Wu, Longhai and Chen, Jie and Chen, Youxin and Koo, Jayoon and Hahm, Cheul-Hee and Chen, Zhao-Min},
+  journal={International Journal of Computer Vision},
+  volume={133},
+  number={1},
+  pages={16--30},
+  year={2025},
+  publisher={Springer}
 }
 ```
